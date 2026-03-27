@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="sw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safari Bora | Huduma Zetu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+         :root {
+            --gold: #eab308;
+            --bg: #050a18;
+        }
+        
+        body {
+            background: radial-gradient(circle at top, #1e3a8a 0%, #050a18 100%);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1s;
+        }
+        
+        h1 {
+            color: var(--gold);
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+        
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: scale(1.02);
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background: rgba(234, 179, 8, 0.1);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+        }
+        
+        .info h3 {
+            margin: 0;
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .info p {
+            margin: 0;
+            color: #94a3b8;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        
+        .btn-back {
+            width: 100%;
+            padding: 15px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            color: #94a3b8;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Huduma Zetu</h1>
+        <p style="color: #cbd5e1;">Suluhisho la uhakika la usafirishaji</p>
+    </div>
+
+    <div class="service-card">
+        <div class="icon-box"><i class="fas fa-truck-moving"></i></div>
+        <div class="info">
+            <h3>Usafirishaji wa Mazao</h3>
+            <p>Tunasafirisha mazao kutoka shambani kwenda sokoni kote nchini.</p>
+        </div>
+    </div>
+
+    <div class="service-card">
+        <div class="icon-box"><i class="fas fa-home"></i></div>
+        <div class="info">
+            <h3>Kuhama Nyumba</h3>
+            <p>Tunakusaidia kuhamisha vyombo na samani za nyumbani kwa usalama.</p>
+        </div>
+    </div>
+
+    <div class="service-card">
+        <div class="icon-box"><i class="fas fa-hard-hat"></i></div>
+        <div class="info">
+            <h3>Vifaa vya Ujenzi</h3>
+            <p>Usafirishaji wa mbao, saruji, nondo na vifaa vyote vya ujenzi.</p>
+        </div>
+    </div>
+
+    <div class="service-card">
+        <div class="icon-box"><i class="fas fa-clock"></i></div>
+        <div class="info">
+            <h3>Huduma ya Haraka</h3>
+            <p>Tunafanya kazi saa 24 kukuhakikishia mzigo unafika kwa wakati.</p>
+        </div>
+    </div>
+
+    <button class="btn-back" onclick="window.location.href='index.html'">
+        <i class="fas fa-arrow-left"></i> Rudi Dashboard
+    </button>
+
+</body>
+
+</html>

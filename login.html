@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="sw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safari Bora | Dereva Login 3D</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+         :root {
+            --gold: #eab308;
+            --bg: #020617;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: radial-gradient(circle at center, #1e3a8a 0%, #020617 100%);
+            min-height: 100vh;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+        /* 3D Decor Elements */
+        
+        .decor {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), #b45309);
+            filter: blur(60px);
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .main-container {
+            perspective: 1200px;
+            width: 100%;
+            max-width: 400px;
+        }
+        /* The 3D Glass Card */
+        
+        .login-3d-card {
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            border-radius: 40px;
+            border: 1px solid var(--border);
+            padding: 40px 30px;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.05);
+            text-align: center;
+            transform: rotateX(10deg) rotateY(-5deg);
+            animation: float 6s ease-in-out infinite;
+            transition: 0.5s ease;
+        }
+        
+        @keyframes float {
+            0%,
+            100% {
+                transform: rotateX(10deg) rotateY(-5deg) translateY(0);
+            }
+            50% {
+                transform: rotateX(5deg) rotateY(5deg) translateY(-15px);
+            }
+        }
+        
+        .login-3d-card:hover {
+            transform: rotateX(0deg) rotateY(0deg) scale(1.02);
+        }
+        
+        .icon-header {
+            width: 80px;
+            height: 80px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        .icon-header i {
+            font-size: 35px;
+            color: var(--gold);
+        }
+        
+        h2 {
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            font-size: 20px;
+        }
+        
+        .subtitle {
+            color: #64748b;
+            font-size: 11px;
+            margin-bottom: 35px;
+            font-weight: 700;
+        }
+        
+        .form-group {
+            margin-bottom: 22px;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+            padding-left: 5px;
+        }
+        
+        .input-wrapper {
+            position: relative;
+        }
+        
+        .input-wrapper i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #475569;
+        }
+        
+        input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 18px 18px 18px 50px;
+            color: white;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+        
+        input:focus {
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 15px rgba(234, 179, 8, 0.1);
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--gold), #b45309);
+            border: none;
+            border-radius: 20px;
+            color: black;
+            font-weight: 900;
+            font-size: 16px;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 15px 30px rgba(234, 179, 8, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+        
+        .btn-login:active {
+            transform: scale(0.96);
+        }
+        
+        .footer-links {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #64748b;
+        }
+        
+        .footer-links a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="decor" style="width: 200px; height: 200px; top: -50px; left: -50px;"></div>
+    <div class="decor" style="width: 300px; height: 300px; bottom: -100px; right: -100px;"></div>
+
+    <div class="main-container">
+        <div class="login-3d-card">
+            <div class="icon-header">
+                <i class="fas fa-steering-wheel"></i>
+            </div>
+            <h2>Karibu Dereva</h2>
+            <p class="subtitle">INGIA KWENYE AKAUNTI YAKO YA 3D</p>
+
+            <div class="form-group">
+                <label>Namba ya Simu</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-phone-alt"></i>
+                    <input type="tel" id="login_phone" placeholder="07xxxxxxxx">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Nenosiri (Password)</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="login_pass" placeholder="••••••••">
+                </div>
+            </div>
+
+            <button class="btn-login" onclick="checkDriverLogin()">
+                INGIA SASA <i class="fas fa-unlock"></i>
+            </button>
+
+            <div class="footer-links">
+                Mpya hapa? <a href="driver_register.html">Sajili Gari Leo</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkDriverLogin() {
+            const simu = document.getElementById('login_phone').value;
+            const pass = document.getElementById('login_pass').value;
+
+            if (!simu || !pass) {
+                alert("Tafadhali jaza namba ya simu na password!");
+                return;
+            }
+
+            // 1. Kuchukua data kutoka Database ya Admin
+            let data = JSON.parse(localStorage.getItem('maagizo_admin')) || [];
+
+            // 2. Kutafuta dereva
+            const dereva = data.find(item =>
+                item.aina_usajili === "DEREVA" &&
+                item.simu === simu &&
+                item.password === pass
+            );
+
+            if (dereva) {
+                // A. REKODI LOGS KWA AJILI YA CEO (Hii ndio sehemu uliyotaka)
+                const logMpya = {
+                    jina: dereva.jina,
+                    simu: dereva.simu,
+                    muda: new Date().toLocaleString(),
+                    id: Date.now()
+                };
+
+                let logs = JSON.parse(localStorage.getItem('login_logs')) || [];
+                logs.push(logMpya);
+                localStorage.setItem('login_logs', JSON.stringify(logs));
+
+                // B. Hifadhi aliyelogin
+                localStorage.setItem('current_driver', JSON.stringify(dereva));
+
+                // C. Mpeleke Dashboard
+                alert("Karibu kazini " + dereva.jina + "!");
+                window.location.href = 'driver_dashboard.html';
+            } else {
+                alert("Namba ya Simu au Password sio sahihi!");
+            }
+        }
+    </script>
+
+</body>
+
+</html>

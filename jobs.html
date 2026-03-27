@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="sw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safari Bora | Mizigo Inayotafuta Magari</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+         :root {
+            --blue: #3b82f6;
+            --gold: #eab308;
+            --green: #22c55e;
+            --bg: #020617;
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: radial-gradient(circle at top left, #1e3a8a 0%, #020617 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+        
+        .header h1 {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+        
+        .header p {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+        
+        .jobs-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .job-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.5s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .job-card h2 {
+            font-size: 18px;
+            color: var(--blue);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .route-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .loc {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .loc span {
+            display: block;
+            font-size: 10px;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        
+        .loc strong {
+            font-size: 14px;
+            color: white;
+        }
+        
+        .arrow {
+            color: var(--gold);
+            font-size: 18px;
+            padding: 0 10px;
+        }
+        
+        .btn-apply {
+            width: 100%;
+            padding: 15px;
+            border-radius: 15px;
+            border: none;
+            background: var(--green);
+            color: white;
+            font-weight: 900;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+        
+        .btn-apply:hover {
+            background: #16a34a;
+            transform: scale(1.02);
+        }
+        
+        .badge-tani {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--blue);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 900;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 100px 20px;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <button onclick="window.location.href='index.html'" style="background:none; border:none; color:var(--gold); float:left; font-size:20px;"><i class="fas fa-arrow-left"></i></button>
+        <h1>Mizigo Inayotafuta Magari</h1>
+        <p>Tafuta mzigo, piga simu, anza safari!</p>
+    </div>
+
+    <div class="jobs-container" id="jobs-list">
+    </div>
+
+    <script>
+        function loadJobs() {
+            const jobsList = document.getElementById('jobs-list');
+            // Tunachukua ile 'mizigo_ya_kazi' uliyopost kule Admin
+            const jobs = JSON.parse(localStorage.getItem('mizigo_ya_kazi')) || [];
+
+            if (jobs.length === 0) {
+                jobsList.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-truck-loading" style="font-size: 50px; margin-bottom: 20px;"></i>
+                    <p>Kwa sasa hakuna mzigo mpya uliopostiwa.</p>
+                    <p style="font-size:11px;">Rudi baadae kidogo!</p>
+                </div>`;
+                return;
+            }
+
+            // Tunapanga kuanzia ya mwisho kupostiwa (Newest first)
+            jobsList.innerHTML = jobs.reverse().map(job => `
+            <div class="job-card">
+                <span class="badge-tani">${job.tani || '10-30'} TANI</span>
+                <h2><i class="fas fa-box"></i> ${job.aina}</h2>
+                
+                <div class="route-info">
+                    <div class="loc">
+                        <span>Kutoka</span>
+                        <strong>${job.kutoka}</strong>
+                    </div>
+                    <div class="arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <div class="loc">
+                        <span>Kwenda</span>
+                        <strong>${job.kwenda}</strong>
+                    </div>
+                </div>
+
+                <a href="https://wa.me/255780777380?text=Habari Safari Bora, nimeona kazi ya kusafirisha ${job.aina} kutoka ${job.kutoka} kwenda ${job.kwenda}. Gari langu lipo tayari." class="btn-apply">
+                    CHUKUA KAZI <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        `).join('');
+        }
+
+        // Pakia kazi punde tu ukurasa unapofunguliwa
+        loadJobs();
+    </script>
+
+</body>
+
+</html>

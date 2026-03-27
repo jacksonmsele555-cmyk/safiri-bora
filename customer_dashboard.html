@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="sw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safari Bora | Live Tracking</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+         :root {
+            --green: #22c55e;
+            --blue: #3b82f6;
+            --bg: #020617;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: radial-gradient(circle at bottom left, #064e3b 0%, #020617 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* Login Box */
+        
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            padding: 40px 25px;
+            border-radius: 35px;
+            border: 1px solid var(--border);
+            text-align: center;
+            margin-top: 50px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        input {
+            width: 100%;
+            padding: 18px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            outline: none;
+        }
+        
+        .btn-check {
+            width: 100%;
+            padding: 18px;
+            border-radius: 20px;
+            border: none;
+            background: var(--green);
+            color: white;
+            font-weight: 900;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+        /* Tracking Card */
+        
+        .order-card {
+            background: var(--glass);
+            border-radius: 30px;
+            padding: 25px;
+            border: 1px solid var(--border);
+            margin-bottom: 25px;
+            width: 100%;
+            max-width: 450px;
+            animation: fadeIn 0.6s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Progress Bar Styling */
+        
+        .tracking-container {
+            margin: 30px 0;
+            padding: 0 10px;
+        }
+        
+        .progress-track {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin-bottom: 10px;
+        }
+        
+        .progress-track::before {
+            content: "";
+            position: absolute;
+            top: 12px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+        
+        .progress-fill {
+            position: absolute;
+            top: 12px;
+            left: 0;
+            height: 4px;
+            background: var(--green);
+            z-index: 2;
+            transition: 1s width ease;
+            box-shadow: 0 0 10px var(--green);
+        }
+        
+        .step {
+            width: 28px;
+            height: 28px;
+            background: #1e293b;
+            border: 2px solid #334155;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 3;
+            font-size: 10px;
+            transition: 0.4s;
+        }
+        
+        .step.active {
+            background: var(--green);
+            border-color: var(--green);
+            color: black;
+            box-shadow: 0 0 15px var(--green);
+        }
+        
+        .step-label {
+            position: absolute;
+            top: 35px;
+            width: 80px;
+            text-align: center;
+            font-size: 9px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+        }
+        
+        .step.active .step-label {
+            color: var(--green);
+        }
+        
+        .contact-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 25px;
+        }
+        
+        .btn-wa {
+            background: #128c7e;
+            color: white;
+            padding: 12px;
+            border-radius: 15px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-cl {
+            background: var(--blue);
+            color: white;
+            padding: 12px;
+            border-radius: 15px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="auth-box" class="login-card">
+        <h2 style="margin-bottom: 10px;">Fuatilia Mzigo</h2>
+        <p style="color:#94a3b8; font-size:12px; margin-bottom:25px;">Ingiza namba ya simu kuona oda yako ilipo.</p>
+        <input type="tel" id="track_phone" placeholder="07xxxxxxxx" maxlength="10">
+        <button class="btn-check" onclick="trackNow()">ANZA KUTRACK <i class="fas fa-satellite-dish"></i></button>
+    </div>
+
+    <div id="results-area" style="display: none; width: 100%; max-width: 450px; margin-top: 20px;">
+        <button onclick="location.reload()" style="background:none; border:none; color:white; margin-bottom:20px;"><i class="fas fa-arrow-left"></i> Rudi Nyuma</button>
+        <div id="oda-cards-list"></div>
+    </div>
+
+    <script>
+        function trackNow() {
+            const simu = document.getElementById('track_phone').value;
+            if (simu.length < 10) {
+                alert("Ingiza namba sahihi!");
+                return;
+            }
+
+            const zote = JSON.parse(localStorage.getItem('maagizo_admin')) || [];
+            const zangu = zote.filter(item => item.simu === simu);
+
+            document.getElementById('auth-box').style.display = 'none';
+            document.getElementById('results-area').style.display = 'block';
+            const container = document.getElementById('oda-cards-list');
+
+            if (zangu.length === 0) {
+                container.innerHTML = `<div style="text-align:center; padding:50px; opacity:0.5;"><p>Hakuna oda kwa namba hii.</p></div>`;
+                return;
+            }
+
+            container.innerHTML = zangu.reverse().map(o => {
+                // Hapa tuna-simulate progress (Kwa sasa inaanza na hatua ya 1)
+                let progressWidth = "5%";
+                let step1Class = "active",
+                    step2Class = "",
+                    step3Class = "";
+
+                return `
+            <div class="order-card">
+                <h3 style="color:var(--green); font-weight:900;">${o.zao || 'Mzigo'}</h3>
+                <p style="font-size:12px; opacity:0.7;">📍 Kutoka: ${o.safari || 'Iliyoandaliwa'}</p>
+
+                <div class="tracking-container">
+                    <div class="progress-track">
+                        <div class="progress-fill" style="width: ${progressWidth}"></div>
+                        <div class="step ${step1Class}"><i class="fas fa-check"></i><div class="step-label">Imehakikiwa</div></div>
+                        <div class="step ${step2Class}"><i class="fas fa-truck-fast"></i><div class="step-label">Ipo Njiani</div></div>
+                        <div class="step ${step3Class}"><i class="fas fa-house-chimney"></i><div class="step-label">Umefika</div></div>
+                    </div>
+                </div>
+
+                <div class="contact-actions">
+                    <a href="https://wa.me/255780777380?text=Habari, nafuatilia mzigo wangu wa ${o.zao}. Namba yangu ni ${simu}." class="btn-wa">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <a href="tel:0780777380" class="btn-cl">
+                        <i class="fas fa-phone-alt"></i> Piga CEO
+                    </a>
+                </div>
+            </div>
+            `;
+            }).join('');
+        }
+    </script>
+</body>
+
+</html>

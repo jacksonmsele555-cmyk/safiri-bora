@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="sw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safari Bora | Dashboard Kuu 3D</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+         :root {
+            --gold: #eab308;
+            --blue: #2563eb;
+            --green: #22c55e;
+            --bg: #020617;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: radial-gradient(circle at top right, #1e3a8a 0%, #020617 100%);
+            min-height: 100vh;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* Dashibodi Header 3D */
+        
+        .header-3d {
+            text-align: center;
+            margin-bottom: 35px;
+            perspective: 1000px;
+        }
+        
+        .logo-box {
+            width: 85px;
+            height: 85px;
+            background: var(--gold);
+            border-radius: 25px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: black;
+            box-shadow: 0 20px 50px rgba(234, 179, 8, 0.4);
+            transform: rotateY(-15deg);
+            animation: floatLogo 5s ease-in-out infinite;
+        }
+        
+        @keyframes floatLogo {
+            0%,
+            100% {
+                transform: rotateY(-15deg) translateY(0);
+            }
+            50% {
+                transform: rotateY(15deg) translateY(-12px);
+            }
+        }
+        
+        .header-3d h1 {
+            font-weight: 900;
+            font-size: 2.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .header-3d p {
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 700;
+            margin-top: 5px;
+            letter-spacing: 3px;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            width: 100%;
+            max-width: 450px;
+        }
+        /* Kadi Kuu */
+        
+        .card-hero {
+            grid-column: span 2;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.25), rgba(234, 179, 8, 0.1));
+            border: 1px solid var(--green);
+            border-radius: 30px;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+        
+        .card-hero:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(34, 197, 94, 0.2);
+        }
+        
+        .card-hero h2 {
+            font-weight: 900;
+            font-size: 20px;
+        }
+        
+        .card-track {
+            grid-column: span 2;
+            background: rgba(34, 197, 94, 0.05);
+            border: 1px dashed var(--green);
+            border-radius: 20px;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .card-login {
+            grid-column: span 2;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .card-small {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            padding: 22px 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .card-small:hover {
+            border-color: var(--gold);
+            transform: translateY(-8px);
+        }
+        
+        .card-small i {
+            font-size: 26px;
+            color: var(--gold);
+        }
+        
+        .card-small span {
+            font-weight: 800;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #94a3b8;
+        }
+        /* --- MODAL YA MALIPO (POPUP) --- */
+        
+        #payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .modal-content {
+            background: white;
+            color: #1e293b;
+            width: 100%;
+            max-width: 380px;
+            border-radius: 25px;
+            padding: 25px;
+            text-align: center;
+            border-top: 8px solid var(--gold);
+            animation: slideUp 0.4s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .pay-card {
+            background: #f8fafc;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px dashed #cbd5e1;
+        }
+        
+        .pay-card h4 {
+            color: #64748b;
+            font-size: 11px;
+            text-transform: uppercase;
+        }
+        
+        .pay-card p {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--bg);
+        }
+        
+        .input-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        
+        .input-group label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #64748b;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #f1f5f9;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #1e293b;
+            outline: none;
+        }
+        
+        .btn-wa-confirm {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #25d366;
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: 900;
+            border: none;
+            cursor: pointer;
+        }
+        /* Live Jobs */
+        
+        .live-jobs-container {
+            width: 100%;
+            max-width: 450px;
+            margin-top: 30px;
+        }
+        
+        .live-title {
+            font-size: 12px;
+            font-weight: 900;
+            color: var(--gold);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: red;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            50% {
+                opacity: 0.4;
+            }
+        }
+        
+        .mini-job-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--blue);
+        }
+        
+        .mini-job-card h4 {
+            font-size: 14px;
+            color: white;
+            margin-bottom: 5px;
+        }
+        
+        .mini-job-card p {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header-3d">
+        <div class="logo-box"><i class="fas fa-truck-fast"></i></div>
+        <h1>Safari Bora</h1>
+        <p>COMMAND CENTER & LOGISTICS</p>
+    </header>
+
+    <div class="dashboard-grid">
+        <div class="card-hero" onclick="window.location.href='agiza_mazao.html'">
+            <div>
+                <h2>Agiza Mazao</h2>
+                <p style="font-size: 11px; color: #94a3b8; margin-top: 4px;">Shambani hadi Sokoni</p>
+            </div>
+            <i class="fas fa-seedling"></i>
+        </div>
+
+        <div class="card-track" onclick="window.location.href='customer_dashboard.html'">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <i class="fas fa-search-location" style="color: var(--green); font-size: 18px;"></i>
+                <span>FUATILIA ODA ZANGU</span>
+            </div>
+            <i class="fas fa-chevron-right" style="color: var(--green); font-size: 12px; opacity: 0.5;"></i>
+        </div>
+
+        <div class="card-login" onclick="funguaMalipo()">
+            <div>
+                <i class="fas fa-wallet" style="color: var(--gold); font-size: 22px;"></i>
+                <span>LIPIA HUDUMA (MALIPO)</span>
+            </div>
+            <i class="fas fa-arrow-right" style="font-size: 12px; color: var(--gold); opacity: 0.4;"></i>
+        </div>
+
+        <div class="card-small" onclick="window.location.href='agiza_mzigo.html'">
+            <i class="fas fa-boxes-packing"></i>
+            <span>Agiza Mzigo</span>
+        </div>
+        <div class="card-small" onclick="window.location.href='driver_register.html'">
+            <i class="fas fa-truck-moving"></i>
+            <span>Sajili Gari</span>
+        </div>
+    </div>
+
+    <div class="live-jobs-container">
+        <div class="live-title">
+            <div class="dot"></div> MIZIGO INAYOTAFUTA MAGARI
+        </div>
+        <div id="home-jobs-feed"></div>
+    </div>
+
+    <div id="payment-modal">
+        <div class="modal-content">
+            <i class="fas fa-wallet" style="font-size: 45px; color: var(--gold);"></i>
+            <h2 style="margin-top: 10px;">KITUO CHA MALIPO</h2>
+            <p style="font-size: 12px; color: #64748b;">Lipa kwanza, kisha jaza namba yako hapa.</p>
+
+            <div class="pay-card">
+                <h4>TIGO PESA,ARTEL MONEY / M-PESA</h4>
+                <p>0780777380</p>
+                <small>Jina: <b>SAFARI BORA LOGISTICS</b></small>
+            </div>
+
+            <div class="input-group">
+                <label>Namba uliyolipa nayo:</label>
+                <input type="number" id="namba_mteja" placeholder="Mf: 07XXXXXXXX">
+            </div>
+
+            <button onclick="tumaWhatsApp()" class="btn-wa-confirm">
+                <i class="fab fa-whatsapp" style="font-size: 20px;"></i> THIBITISHA MALIPO
+            </button>
+
+            <button onclick="fungaMalipo()" style="margin-top: 15px; background:none; border:none; color:#94a3b8; cursor:pointer; font-weight:700; font-size: 11px;">RUDI NYUMA</button>
+        </div>
+    </div>
+
+    <script>
+        // Kazi za Modal ya Malipo
+        function funguaMalipo() {
+            document.getElementById('payment-modal').style.display = 'flex';
+        }
+
+        function fungaMalipo() {
+            document.getElementById('payment-modal').style.display = 'none';
+        }
+
+        // Kazi ya kutuma namba kwenda WhatsApp
+        function tumaWhatsApp() {
+            const nambaYaMteja = document.getElementById('namba_mteja').value;
+
+            if (!nambaYaMteja || nambaYaMteja.length < 10) {
+                alert("Tafadhali ingiza namba yako ya simu kwa usahihi ili kuthibitisha!");
+                return;
+            }
+
+            const nambaYako = "255780777380"; // Namba yako ya kupokea ujumbe
+            const ujumbe = `Habari Safari Bora,\n\nNimemaliza kufanya malipo yangu.\n*Namba niliyotumia kulipa:* ${nambaYaMteja}\n\nNaomba malipo yangu yathibitishwe.`;
+
+            const waUrl = `https://wa.me/${nambaYako}?text=${encodeURIComponent(ujumbe)}`;
+            window.open(waUrl, '_blank');
+        }
+
+        // Pakia Mizigo ya Live
+        function loadHomeJobs() {
+            const feed = document.getElementById('home-jobs-feed');
+            const jobs = JSON.parse(localStorage.getItem('mizigo_ya_kazi')) || [];
+
+            if (jobs.length === 0) {
+                feed.innerHTML = "<p style='font-size:11px; color:#475569; text-align:center;'>Hakuna mzigo mpya kwa sasa.</p>";
+                return;
+            }
+
+            feed.innerHTML = jobs.reverse().slice(0, 3).map(job => `
+                <div class="mini-job-card">
+                    <h4>${job.aina}</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> ${job.kutoka} <i class="fas fa-arrow-right"></i> ${job.kwenda}</p>
+                </div>
+            `).join('');
+        }
+        loadHomeJobs();
+    </script>
+</body>
+
+</html>

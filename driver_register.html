@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="sw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safari Bora | Sajili Gari & Njia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+         :root {
+            --gold: #eab308;
+            --bg: #050a18;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: radial-gradient(circle at bottom left, #1e3a8a 0%, #050a18 100%);
+            min-height: 100vh;
+            color: white;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 450px;
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            border-radius: 35px;
+            border: 1px solid var(--border);
+            padding: 30px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .header i {
+            font-size: 45px;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            font-weight: 900;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+        }
+        
+        .form-group {
+            margin-bottom: 18px;
+        }
+        
+        label {
+            display: block;
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        
+        input,
+        select,
+        textarea {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 16px;
+            color: white;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+        
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .photo-card {
+            background: rgba(234, 179, 8, 0.05);
+            border: 2px dashed var(--gold);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 25px;
+        }
+        
+        .btn-register {
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--gold), #b45309);
+            border: none;
+            border-radius: 22px;
+            color: black;
+            font-weight: 900;
+            font-size: 16px;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 15px 30px rgba(234, 179, 8, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <i class="fas fa-truck-pickup"></i>
+            <h2>Sajili Gari & Njia</h2>
+        </div>
+
+        <div class="form-group">
+            <label>Jina la Mmiliki / Dereva</label>
+            <input type="text" id="driver_name" placeholder="Ingiza jina lako">
+        </div>
+
+        <div class="form-group">
+            <label>Namba ya Simu</label>
+            <input type="tel" id="driver_phone" placeholder="07xxxxxxxx">
+        </div>
+
+        <div class="form-group">
+            <label>Aina ya Gari & Plate Number</label>
+            <div style="display: flex; gap: 10px;">
+                <select id="truck_type" style="flex: 2;">
+                <option>Fuso</option>
+                <option>Semi-Trailer</option>
+                <option>Pickup</option>
+                <option>Scania/Actros</option>
+            </select>
+                <input type="text" id="plate_number" placeholder="T 123 ABC" style="flex: 1;">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Mikoa ya Kazi (Njia unazozijua)</label>
+            <textarea id="working_routes" rows="2" placeholder="Mfano: Dar - Mwanza, Mbeya - Arusha..."></textarea>
+        </div>
+
+        <div class="photo-card" onclick="document.getElementById('truck_photo').click()">
+            <i class="fas fa-camera"></i>
+            <p id="photo_label">Piga picha ya gari lako</p>
+            <input type="file" id="truck_photo" accept="image/*" capture="environment" style="display:none" onchange="updatePhotoStatus()">
+        </div>
+
+        <button class="btn-register" onclick="saveDriverData()">
+        Kamilisha Usajili <i class="fas fa-check-circle"></i>
+    </button>
+
+        <a href="index.html" class="btn-back">Rudi Nyuma</a>
+    </div>
+
+    <script>
+        function updatePhotoStatus() {
+            const file = document.getElementById('truck_photo').files;
+            if (file) {
+                document.getElementById('photo_label').innerHTML = "Picha Imewekwa ✅";
+                document.getElementById('photo_label').style.color = "#22c55e";
+            }
+        }
+
+        function saveDriverData() {
+            const name = document.getElementById('driver_name').value;
+            const phone = document.getElementById('driver_phone').value;
+            const type = document.getElementById('truck_type').value;
+            const plate = document.getElementById('plate_number').value;
+            const routes = document.getElementById('working_routes').value;
+
+            if (!name || !phone || !plate || !routes) {
+                alert("Tafadhali jaza taarifa zote!");
+                return;
+            }
+
+            const driverEntry = {
+                id: Date.now(),
+                aina_usajili: "DEREVA",
+                jina: name,
+                simu: phone,
+                aina: type,
+                plate: plate,
+                njia: routes, // Imehifadhiwa hapa
+                muda: new Date().toLocaleString()
+            };
+
+            let currentData = JSON.parse(localStorage.getItem('maagizo_admin')) || [];
+            currentData.push(driverEntry);
+            localStorage.setItem('maagizo_admin', JSON.stringify(currentData));
+
+            alert("Usajili wako umetumwa kwa Admin!");
+            window.location.href = 'index.html';
+        }
+    </script>
+
+</body>
+
+</html>
+<div class="form-group">
+    <label>Tengeneza Nenosiri (Password)</label>
+    <input type="password" id="driver_password" placeholder="Weka namba za siri (mfano: 1234)">
+</div>
+
+<script>
+    function saveDriverData() {
+        const name = document.getElementById('driver_name').value;
+        const phone = document.getElementById('driver_phone').value;
+        const type = document.getElementById('truck_type').value;
+        const plate = document.getElementById('plate_number').value;
+        const routes = document.getElementById('working_routes').value;
+        const password = document.getElementById('driver_password').value; // Namba ya siri
+
+        if (!name || !phone || !plate || !password) {
+            alert("Tafadhali jaza taarifa zote na nenosiri!");
+            return;
+        }
+
+        const driverEntry = {
+            id: Date.now(),
+            aina_usajili: "DEREVA",
+            jina: name,
+            simu: phone,
+            aina: type,
+            plate: plate,
+            njia: routes,
+            password: password, // Hifadhi password hapa
+            muda: new Date().toLocaleString()
+        };
+
+        let currentData = JSON.parse(localStorage.getItem('maagizo_admin')) || [];
+        currentData.push(driverEntry);
+        localStorage.setItem('maagizo_admin', JSON.stringify(currentData));
+
+        alert("Usajili umekamilika! Sasa unaweza kuingia kwa kutumia Simu na Nenosiri.");
+        window.location.href = 'login.html';
+    }
+</script>

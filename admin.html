@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="sw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safari Bora | Admin Control Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+         :root {
+            --gold: #eab308;
+            --blue: #3b82f6;
+            --red: #ef4444;
+            --green: #22c55e;
+            --bg: #020617;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: #f1f5f9;
+            color: #1e293b;
+            min-height: 100vh;
+            padding-bottom: 50px;
+        }
+        
+        .admin-header {
+            background: var(--bg);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            border-bottom: 4px solid var(--gold);
+        }
+        
+        .admin-header h1 {
+            font-size: 20px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+        
+        .tab-btn {
+            padding: 10px 20px;
+            border-radius: 12px;
+            border: none;
+            background: white;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            white-space: nowrap;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .tab-btn.active {
+            background: var(--gold);
+            color: black;
+        }
+        
+        .post-card {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+        }
+        
+        .post-card h2 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: var(--blue);
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            outline: none;
+        }
+        
+        .btn-post {
+            width: 100%;
+            padding: 15px;
+            background: var(--blue);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 900;
+            cursor: pointer;
+        }
+        
+        .data-card {
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--gold);
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+        }
+        
+        .data-card h3 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .data-card p {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+        
+        .badge {
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-call {
+            padding: 8px;
+            background: var(--green);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+        }
+        
+        .btn-wa {
+            background: var(--blue);
+            color: white;
+            padding: 8px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 900;
+            flex: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .btn-del {
+            padding: 8px 15px;
+            background: #fee2e2;
+            color: var(--red);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="admin-header">
+        <h1>SAFARI BORA <span style="color: var(--gold);">ADMIN</span></h1>
+        <p style="font-size: 10px; opacity: 0.6;">Karibu Boss! Simamia kila kitu hapa.</p>
+    </div>
+
+    <div class="container">
+        <div id="post-job-area" class="post-card" style="display:none;">
+            <h2><i class="fas fa-plus-circle"></i> Post Mzigo Mpya</h2>
+            <input type="text" id="job_aina" placeholder="Aina ya Mzigo (Mf. Mahindi)">
+            <input type="text" id="job_kutoka" placeholder="Kutoka (Mkoa/Wilaya)">
+            <input type="text" id="job_kwenda" placeholder="Kwenda (Mkoa/Wilaya)">
+            <input type="number" id="job_tani" placeholder="Tani ngapi?">
+            <button class="btn-post" onclick="tumaMzigo()">TUMA KAZI KWA MADEREVA <i class="fas fa-paper-plane"></i></button>
+        </div>
+
+        <div id="quick-receipt-area" class="post-card" style="display:none;">
+            <h2 style="color: #25d366;"><i class="fab fa-whatsapp"></i> Tengeneza Risiti ya WhatsApp</h2>
+            <input type="text" id="q_jina" placeholder="Jina la Mteja">
+            <input type="number" id="q_simu" placeholder="Namba ya WhatsApp (0...)">
+            <input type="text" id="q_mzigo" placeholder="Aina ya Mzigo & Tani">
+            <input type="text" id="q_route" placeholder="Route (Kutoka - Kwenda)">
+            <input type="text" id="q_pesa" placeholder="Kiasi alicholipa (Tsh)">
+            <button class="btn-post" onclick="tumaRisitiYaHaraka()" style="background: #25d366;">TUMA RISITI WHATSAPP</button>
+        </div>
+
+        <div id="fedha-form" style="display:none;" class="post-card">
+            <h2 style="color: var(--green);"><i class="fas fa-wallet"></i> Ingiza Mapato ya Safari</h2>
+            <input type="text" id="f_safari" placeholder="Safari (Mf. Dar - Mwanza)">
+            <input type="number" id="f_malipo" placeholder="Jumla ya Malipo (Tsh)">
+            <input type="number" id="f_gharama" placeholder="Gharama (Mafuta, Dereva, nk)">
+            <button class="btn-post" onclick="hifadhiMapato()" style="background: var(--green);">TUNZA KUMBUKUMBU</button>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('maagizo')">Maagizo</button>
+            <button class="tab-btn" onclick="showTab('madereva')">Madereva</button>
+            <button class="tab-btn" onclick="showTab('mizigo')">Mizigo Post</button>
+            <button class="tab-btn" onclick="showTab('risiti')" style="background: #e1f5fe; color: #01579b;">Risiti/WhatsApp</button>
+            <button class="tab-btn" onclick="showTab('fedha')" style="background: #dcfce7; color: #166534;">Ripoti ya Fedha</button>
+        </div>
+
+        <div id="admin-content">
+        </div>
+    </div>
+
+    <script>
+        // --- 1. RISITI YA HARAKA (WHATSAPP) ---
+        function tumaRisitiYaHaraka() {
+            const jina = document.getElementById('q_jina').value;
+            let simu = document.getElementById('q_simu').value;
+            const mzigo = document.getElementById('q_mzigo').value;
+            const route = document.getElementById('q_route').value;
+            const pesa = document.getElementById('q_pesa').value;
+
+            if (!jina || !simu || !mzigo) return alert("Tafadhali jaza Jina, Simu na Mzigo!");
+
+            // Safisha namba ianze na 255
+            simu = simu.replace(/\s+/g, '').replace('+', '');
+            if (simu.startsWith('0')) simu = '255' + simu.substring(1);
+
+            const msg = `*SAFARI BORA LOGISTICS* 🚚%0A------------------------------%0A*RISITI YA MALIPO*%0A------------------------------%0A*Mteja:* ${jina}%0A*Mzigo:* ${mzigo}%0A*Route:* ${route}%0A*Malipo:* ${pesa || 'Imelipwa'} ✅%0A------------------------------%0A*HALI:* MZIGO UPO KWENYE SAFARI%0A------------------------------%0AAsante kwa kutuchagua!`;
+
+            window.open(`https://wa.me/${simu}?text=${msg}`, '_blank');
+        }
+
+        // --- 2. KAZI ZA MIZIGO (POSTING) ---
+        function tumaMzigo() {
+            const aina = document.getElementById('job_aina').value;
+            const kutoka = document.getElementById('job_kutoka').value;
+            const kwenda = document.getElementById('job_kwenda').value;
+            const tani = document.getElementById('job_tani').value;
+            if (!aina || !kutoka || !kwenda) return alert("Jaza kila kitu!");
+            const mpya = {
+                id: Math.floor(1000 + Math.random() * 9000),
+                aina,
+                kutoka,
+                kwenda,
+                tani
+            };
+            let jobs = JSON.parse(localStorage.getItem('mizigo_ya_kazi')) || [];
+            jobs.push(mpya);
+            localStorage.setItem('mizigo_ya_kazi', JSON.stringify(jobs));
+            alert("Mzigo umepostiwa!");
+            showTab('mizigo');
+        }
+
+        // --- 3. KAZI ZA FEDHA ---
+        function hifadhiMapato() {
+            const safari = document.getElementById('f_safari').value;
+            const malipo = parseFloat(document.getElementById('f_malipo').value);
+            const gharama = parseFloat(document.getElementById('f_gharama').value);
+            if (!safari || isNaN(malipo)) return alert("Jaza taarifa za fedha!");
+            const faida = malipo - gharama;
+            const kumbukumbu = {
+                id: Date.now(),
+                safari,
+                malipo,
+                gharama,
+                faida,
+                tarehe: new Date().toLocaleDateString()
+            };
+            let ripoti = JSON.parse(localStorage.getItem('safari_bora_fedha')) || [];
+            ripoti.push(kumbukumbu);
+            localStorage.setItem('safari_bora_fedha', JSON.stringify(ripoti));
+            alert("Hesabu imetunzwa!");
+            showTab('fedha');
+        }
+
+        // --- 4. RENDER CONTENT ---
+        function renderAdmin(filter) {
+            const content = document.getElementById('admin-content');
+            content.innerHTML = "";
+            const data = JSON.parse(localStorage.getItem('maagizo_admin')) || [];
+
+            if (filter === 'maagizo') {
+                data.filter(i => i.aina_usajili !== "DEREVA").forEach(item => {
+                    let simuSafi = item.simu.replace(/\s+/g, '').replace('+', '');
+                    if (simuSafi.startsWith('0')) simuSafi = '255' + simuSafi.substring(1);
+
+                    const ujumbeRisiti = `Habari *${item.jina}*, Asante kwa kuchagua *SAFARI BORA*. 🚚%0A------------------------------%0A*RISITI YA MALIPO*%0AOda Na: #${item.id}%0AMzigo: ${item.mazao || 'Mzigo Mwengine'}%0ARoute: ${item.kutoka} -> ${item.kwenda}%0A------------------------------%0A*HALI YA MALIPO: IMELIPWA* ✅`;
+
+                    content.innerHTML += `
+                    <div class="data-card">
+                        <span class="badge" style="background:#dcfce7; color:var(--green);">Oda Mpya</span>
+                        <h3>${item.mazao || 'Mzigo Mwengine'}</h3>
+                        <p>Mteja: ${item.jina} | Simu: ${item.simu}</p>
+                        <div class="actions">
+                            <a href="tel:${item.simu}" class="btn-call"><i class="fas fa-phone"></i></a>
+                            <a href="https://wa.me/${simuSafi}?text=${ujumbeRisiti}" target="_blank" class="btn-wa">
+                                <i class="fab fa-whatsapp"></i> RISITI
+                            </a>
+                            <button class="btn-del" onclick="futaOda(${item.id})"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>`;
+                });
+            } else if (filter === 'madereva') {
+                data.filter(i => i.aina_usajili === "DEREVA").forEach(item => {
+                    content.innerHTML += `
+                    <div class="data-card" style="border-left-color: var(--blue);">
+                        <span class="badge" style="background:#dbeafe; color:var(--blue);">Dereva Mpya</span>
+                        <h3>${item.jina}</h3>
+                        <p>Gari: ${item.aina} (${item.plate})</p>
+                        <div class="actions">
+                            <a href="tel:${item.simu}" class="btn-call" style="width:100%">Piga Simu</a>
+                            <button class="btn-del" onclick="futaOda(${item.id})">Futa</button>
+                        </div>
+                    </div>`;
+                });
+            } else if (filter === 'mizigo') {
+                const jobs = JSON.parse(localStorage.getItem('mizigo_ya_kazi')) || [];
+                jobs.reverse().forEach(job => {
+                    content.innerHTML += `
+                    <div class="data-card" style="border-left-color: var(--red);">
+                        <span class="badge" style="background:#fee2e2; color:var(--red);">Mzigo Post</span>
+                        <h3>${job.aina} - ${job.tani} Tani</h3>
+                        <p>${job.kutoka} mpaka ${job.kwenda}</p>
+                        <button class="btn-del" style="width:100%" onclick="futaJob(${job.id})">Futa Post Hii</button>
+                    </div>`;
+                });
+            }
+        }
+
+        function renderFedha() {
+            const container = document.getElementById('admin-content');
+            const data = JSON.parse(localStorage.getItem('safari_bora_fedha')) || [];
+            let total = 0;
+            data.forEach(i => total += i.faida);
+
+            let html = `
+                <div style="background: var(--bg); color: white; padding: 20px; border-radius: 20px; text-align: center; margin-bottom: 20px;">
+                    <p style="font-size: 11px; opacity: 0.7;">JUMLA YA FAIDA YAKO</p>
+                    <h1 style="color: var(--gold);">Tsh ${total.toLocaleString()}</h1>
+                </div>`;
+
+            data.reverse().forEach(entry => {
+                html += `
+                    <div class="data-card" style="border-left-color: var(--green);">
+                        <div style="display:flex; justify-content:space-between;"><strong>${entry.safari}</strong> <small>${entry.tarehe}</small></div>
+                        <p>Malipo: ${entry.malipo.toLocaleString()} | Gharama: ${entry.gharama.toLocaleString()}</p>
+                        <h3 style="color: var(--green);">Faida: Tsh ${entry.faida.toLocaleString()}</h3>
+                        <button class="btn-del" onclick="futaFedha(${entry.id})" style="width: 100%; margin-top: 10px;">Futa</button>
+                    </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        // --- 5. TABS & DELETE ---
+        function showTab(t) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            if (event) event.target.classList.add('active');
+
+            // Ficha/Onyesha fomu husika
+            document.getElementById('fedha-form').style.display = (t === 'fedha') ? 'block' : 'none';
+            document.getElementById('post-job-area').style.display = (t === 'mizigo') ? 'block' : 'none';
+            document.getElementById('quick-receipt-area').style.display = (t === 'risiti') ? 'block' : 'none';
+
+            if (t === 'fedha') renderFedha();
+            else if (t === 'risiti') document.getElementById('admin-content').innerHTML = "";
+            else renderAdmin(t);
+        }
+
+        function futaOda(id) {
+            let data = JSON.parse(localStorage.getItem('maagizo_admin'));
+            localStorage.setItem('maagizo_admin', JSON.stringify(data.filter(i => i.id !== id)));
+            renderAdmin('maagizo');
+        }
+
+        function futaJob(id) {
+            let jobs = JSON.parse(localStorage.getItem('mizigo_ya_kazi'));
+            localStorage.setItem('mizigo_ya_kazi', JSON.stringify(jobs.filter(j => j.id !== id)));
+            renderAdmin('mizigo');
+        }
+
+        function futaFedha(id) {
+            let data = JSON.parse(localStorage.getItem('safari_bora_fedha'));
+            localStorage.setItem('safari_bora_fedha', JSON.stringify(data.filter(i => i.id !== id)));
+            renderFedha();
+        }
+
+        renderAdmin('maagizo');
+    </script>
+</body>
+
+</html>
